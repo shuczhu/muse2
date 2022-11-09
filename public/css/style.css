@@ -345,3 +345,7 @@ header h1 {
   background-color: #2196F3;
   color: #fff;
 }
+
+.margin-wrap { 
+  margin: 5%;
+}

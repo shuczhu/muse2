@@ -141,8 +141,6 @@ const generateHandler = async (event) => {
   const range = await quill.getSelection();
   const textSelectedInput = await quill.getText(range.index, range.length);
 
-  // console.log(textSelectedInput)
-
   if (range !== null) {
     const response = await fetch("/api/generate", {
       method: "POST",
@@ -154,15 +152,25 @@ const generateHandler = async (event) => {
 
     const data = await response.json();
 
+    console.log(data);
+
+    const responseRecord = await fetch("/api/editor/response", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt: textSelectedInput, response: data.checkresult})
+    })
+
     var length = await quill.getLength();
 
     quill.insertText(length, data.checkresult);
 
   } else {
 
-    console.log('test');
-    
-  };
+  window.alert("Please highlight a passage as prompt to generate");
+  
+};
 
 
 };
