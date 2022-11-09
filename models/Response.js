@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class AI extends Model {}
+class Response extends Model {}
 
-AI.init(
+Response.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,24 +11,14 @@ AI.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    title: {
+    prompt: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    content: {
+    response: {
       type: DataTypes.TEXT,
     },
     date_created: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    is_public: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true,
-    },
-    last_updated: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
@@ -46,8 +36,8 @@ AI.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'ai',
+    modelName: 'response',
   }
 );
 
-module.exports = AI;
+module.exports = Response;

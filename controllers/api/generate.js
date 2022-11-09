@@ -15,8 +15,8 @@ router.post('/', async (req, res)=> {
         const AIgen = await openai.createCompletion({
             model: "text-davinci-002",
             prompt: req.body.textSelected,
-            max_tokens: 100,
-            temperature: 0.5,
+            max_tokens: 500,
+            temperature: 0.99,
         });
 
         // console.log("test")
@@ -28,5 +28,6 @@ router.post('/', async (req, res)=> {
         res.status(400).json(err);
     }
 });
+
 
 module.exports = router;

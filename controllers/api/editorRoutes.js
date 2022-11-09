@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { AI } = require('../../models');
+const { response } = require('express');
+const { AI, Response } = require('../../models');
 
 router.get('/:id', async (req, res)=> {
     try {
@@ -21,7 +22,7 @@ router.get('/:id', async (req, res)=> {
 router.put('/:id', async (req, res) => {
   try {
     if(req.body.content){
-    const documentData = await AI.update({content: req.body.content}, {
+    const documentData = await AI.update({content: req.body.content, last_updated: req.body.last_updated}, {
       where: {id: req.params.id}  });
       res.status(200).json(documentData);
   };
@@ -32,6 +33,13 @@ router.put('/:id', async (req, res) => {
       } );
       res.status(200).json(titleData);
     };
+
+    if(req.body.is_public){
+      const publicData = await AI.update({is_public: req.body.is_public}, {
+        where: {id: req.params.id}
+      });
+      res.status(200).json(publicData)
+    }
   } catch (err) {
     console.log(err)
     res.status(400).json(err)
@@ -55,6 +63,21 @@ router.delete('/:id', async (req, res) => {
     res.status(200).json(aiData);
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+
+router.post('/response', async (req, res) => {
+  try {
+    const responseRecord = await Response.create({
+      ...req.body,
+      user_id: req.session.user_id,
+    });
+
+    res.status(200).json(responseRecord);
+
+    console.log(responseRecord)
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 

@@ -14,6 +14,16 @@ const PORT = process.env.PORT || 3001;
 // Set up Handlebars.js engine with custom helpers
 const hbs = exphbs.create({ helpers });
 
+hbs.handlebars.registerHelper('isEqual', function (value1, value2){
+  return value1 === value2
+});
+
+hbs.handlebars.registerHelper('summary', function (text){
+  const first30 = text.split(' ').slice(0, 45).join(' ');
+
+  return first30 + "..."
+});
+
 const sess = {
   secret: 'Super secret secret',
   cookie: {
