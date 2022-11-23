@@ -1,0 +1,11 @@
+<div class="margin-wrap">
+
+{{#each response as |response|}}
+<div class="response">
+<p>ID: {{response.id}}</p>
+<p class="prompt">Prompt: {{response.prompt}}</p>
+<p>Response: {{response.response}}</p>
+<p>Date Created: {{response.date_created}}</p>
+</div>
+{{/each}}
+</div>

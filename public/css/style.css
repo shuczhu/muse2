@@ -349,3 +349,14 @@ header h1 {
 .margin-wrap { 
   margin: 5%;
 }
+
+.response { 
+  margin-top: 10px;
+  border-top: 3px dotted black;
+  padding: 10px;
+}
+
+.prompt {
+  font-weight: 900;
+  color: navy;
+}

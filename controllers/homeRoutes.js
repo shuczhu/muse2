@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { AI, User } = require('../models');
+const { AI, User, Response } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -151,6 +151,29 @@ router.get('/profile/:id', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+router.get('/history', async (req, res) => {
+  try {
+    
+    // Get all projects and JOIN with user data
+    const responseData = await Response.findAll({
+    });
+
+    // Serialize data so the template can read it
+    const response = responseData.map((response) => response.get({ plain: true }));
+
+    // const aiSorted = ais.sort((a,b)=>a.last_updated()-b.lastupdated());
+
+    // console.log(aiSorted);
+
+
+    res.render('history', { 
+      response, 
+      logged_in: req.session.logged_in 
+    });
+} catch (err) {
+res.status(500).json(err)
+}});
 
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
