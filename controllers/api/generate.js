@@ -13,7 +13,7 @@ router.post('/', async (req, res)=> {
 
     try {
         const AIgen = await openai.createCompletion({
-            model: "text-davinci-002",
+            model: "text-davinci-003",
             prompt: req.body.textSelected,
             max_tokens: 500,
             temperature: 0.99,
